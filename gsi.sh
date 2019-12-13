@@ -122,6 +122,7 @@ if [ $MOUNTED == false ]; then
         URL="$ZIP_NAME"
     fi
     "$PROJECT_DIR"/zip2img.sh "$URL" "$PROJECT_DIR/working" || exit 1
+    export FIRMWARE_PATH=$URL
     if [ $CLEAN == true ]; then
         rm -rf "$ZIP_NAME"
     fi
