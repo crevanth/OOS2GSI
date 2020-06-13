@@ -26,7 +26,6 @@ rm -rf $1/product/app/Videos
 rm -rf $1/priv-app/OnePlusCamera
 rm -rf $1/priv-app/OnePlusGallery
 rm -rf $1/priv-app/Velvet
-rm -rf $1/priv-app/OPFaceUnlock
 rm -rf $1/priv-app/Houston
 rm -rf $1/reserve/OPNote
 rm -rf $1/reserve/SoundRecorder
@@ -93,7 +92,6 @@ rm -rf $1/app/OPCommonLogTool
 rm -rf $1/app/OPGamingSpace
 rm -rf $1/app/OPPush
 rm -rf $1/app/OPSafe
-rm -rf $1/app/OPScreenRecord
 rm -rf $1/app/OsuLogin
 rm -rf $1/app/PhotosOnline
 rm -rf $1/app/Rftoolkit
