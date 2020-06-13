@@ -19,9 +19,6 @@ rm -rf $1/bin/qvrservice
 # Append file_context
 cat $thispath/file_contexts >> $1/etc/selinux/plat_file_contexts
 
-# Fix packageinstaller
-echo "ro.build.version.sdk=28" >> $1/build.prop
-
 # oppo boot stage hacks
 sed -i "s|/proc/phoenix|/data/erf/phx|g" $1/framework/boot-framework.vdex
 sed -i "s|/proc/phoenix|/data/erf/phx|g" $1/lib/libphoenix_native.so
