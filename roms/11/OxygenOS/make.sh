@@ -32,6 +32,24 @@ sed -i "s/M-184.95,0 C-168,0.12,-160.84,7.45,-158.7,24.11 c4,31.21,25.33,54.92,6
 cp -fpr $thispath/bin/* $1/bin/
 cat $thispath/rw-system.add.sh >> $1/bin/rw-system.sh
 
+# Feature_list Tweaks
+feature_list="
+OP_FEATURE_AI_BOOST_PACKAGE
+OP_FEATURE_APP_PRELOAD
+OP_FEATURE_BUGREPORT
+OP_FEATURE_OHPD
+OP_FEATURE_OPDIAGNOSE
+OP_FEATURE_PRELOAD_APP_TO_DATA
+OP_FEATURE_SMART_BOOST
+OP_FEATURE_X_LINEAR_VIBRATION_MOTOR
+OP_FEATURE_SUPPORT_CUSTOM_FINGERPRINT
+"
+ for i in $feature_list ; do
+   if [ "$(grep $i $1/etc/feature_list)" != "" ]; then
+     sed -i -e "/$i/{n;d}" -e "$!N;/\n.*$i/!P;D" $1/etc/feature_list
+     sed -i "/$i/d" $1/etc/feature_list
+   fi
+done
 ## Fix OOS Data, kang from flyme fix
 # Permission
 chmod 0644 $1/etc/init/flymedata.rc
