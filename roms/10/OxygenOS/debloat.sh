@@ -26,7 +26,7 @@ rm -rf $1/product/app/Videos
 rm -rf $1/priv-app/OnePlusCamera
 rm -rf $1/priv-app/OnePlusGallery
 rm -rf $1/priv-app/Velvet
-rm -rf $1/priv-app/Houston
+rm -rf $1/priv-app/OPFaceUnlock
 rm -rf $1/reserve/OPNote
 rm -rf $1/reserve/SoundRecorder
 rm -rf $1/reserve/OPForum
@@ -68,7 +68,6 @@ rm -rf $1/product/app/Duo
 rm -rf $1/priv-app/CtsShimPrivPrebuilt
 rm -rf $1/priv-app/HotwordEnrollmentXGoogleWCD9340
 rm -rf $1/priv-app/HotwordEnrollmentOKGoogleWCD9340
-rm -rf $1/priv-app/Houston
 rm -rf $1/priv-app/subsdm
 rm -rf $1/priv-app/TSDM
 rm -rf $1/priv-app/TagGoogle
@@ -77,7 +76,7 @@ rm -rf $1/priv-app/ONS
 rm -rf $1/priv-app/LocalTransport
 rm -rf $1/app/ARCore_stub
 rm -rf $1/app/AntHalService
-rm -rf $1/app/Calculator 
+rm -rf $1/app/Calculator
 rm -rf $1/app/CtsShimPrebuilt
 rm -rf $1/app/EngineeringMode
 rm -rf $1/app/EngSpecialTest
@@ -85,7 +84,7 @@ rm -rf $1/app/LogKitSdService
 rm -rf $1/app/Netflix_Activation
 rm -rf $1/app/Netflix_Stub
 rm -rf $1/app/OEMLogKit
-rm -rf $1/app/OPBackup 
+rm -rf $1/app/OPBackup
 rm -rf $1/app/OPBreathMode
 rm -rf $1/app/OPBugReportLite
 rm -rf $1/app/OPCommonLogTool
@@ -101,3 +100,15 @@ rm -rf $1/etc/apps/in
 
 # RIL FIX
 rm -rf $1/product/framework/op-telephony-common.jar
+
+# Drop OnePlus useless services
+rm -rf $1/app/LogKitSdService
+rm -rf $1/app/OEMLogKit
+rm -rf $1/app/OPBugReportLite
+rm -rf $1/app/OPCommonLogTool
+rm -rf $1/app/OPIntelliService
+rm -rf $1/app/OPTelephonyDiagnoseManager
+rm -rf $1/priv-app/Houston
+rm -rf $1/priv-app/OPAppCategoryProvider
+rm -rf $1/priv-app/OPDeviceManager
+rm -rf $1/priv-app/OPDeviceManagerProvider
