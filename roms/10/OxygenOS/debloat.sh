@@ -8,7 +8,6 @@ rm -rf $1/product/app/Duo
 rm -rf $1/product/app/Maps
 rm -rf $1/product/app/YouTube
 rm -rf $1/product/app/talkback
-rm -rf $1/app/Chrome
 rm -rf $1/product/app/CalendarGoogle
 rm -rf $1/product/app/Photos
 rm -rf $1/app/GooglePay
@@ -51,7 +50,6 @@ rm -rf $1/product/priv-app/LiveCaption
 rm -rf $1/product/priv-app/QAS_DVC_MSP
 rm -rf $1/product/priv-app/Velvet
 rm -rf $1/product/app/Drive
-rm -rf $1/product/app/Chrome
 rm -rf $1/product/app/CalendarGoogle
 rm -rf $1/product/app/talkback
 rm -rf $1/product/app/embms
@@ -88,9 +86,7 @@ rm -rf $1/app/OPBackup
 rm -rf $1/app/OPBreathMode
 rm -rf $1/app/OPBugReportLite
 rm -rf $1/app/OPCommonLogTool
-rm -rf $1/app/OPGamingSpace
 rm -rf $1/app/OPPush
-rm -rf $1/app/OPSafe
 rm -rf $1/app/OsuLogin
 rm -rf $1/app/PhotosOnline
 rm -rf $1/app/Rftoolkit
