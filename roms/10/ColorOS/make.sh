@@ -16,6 +16,9 @@ cp -fpr $thispath/bin/* $1/bin/
 # drop QVRservice
 rm -rf $1/bin/qvrservice
 
+# Fix packageinstaller
+echo "ro.build.version.sdk=29" >> $1/build.prop
+
 # Append file_context
 cat $thispath/file_contexts >> $1/etc/selinux/plat_file_contexts
 
