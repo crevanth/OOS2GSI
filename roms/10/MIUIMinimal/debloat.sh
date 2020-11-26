@@ -79,16 +79,11 @@ rm -rf $1/data-app/MiCreditInStub
 
 rm -rf $1/app/Notes
 rm -rf $1/app/FM
-rm -rf $1/priv-app/MiBrowserGlobal
-rm -rf $1/priv-app/MiShare
 rm -rf $1/priv-app/MiDrop
-rm -rf $1/app/MiuiVideoPlayer
 rm -rf $1/data-app/MiuiDriveMode
 rm -rf $1/data-app/Health
-rm -rf $1/data-app/CleanMaster
 rm -rf $1/data-app/MiLiveAssistant
 rm -rf $1/app/MiRadio
 rm -rf $1/app/Mipay
 rm -rf $1/priv-app/MiuiScanner
 rm -rf $1/app/MiuiCompass
-rm -rf $1/app/MiuiVideoGlobal
