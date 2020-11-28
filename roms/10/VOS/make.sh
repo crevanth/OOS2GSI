@@ -9,3 +9,6 @@ cp -frp $thispath/overlay/* $1/product/overlay/
 # drop VinServiceApp (disable system warning)
 rm -rf $1/priv-app/VinServiceApp
 rm -rf $1/priv-app/VDefense
+
+# Fix VOS Aris Warranty popup
+rm -rf system/priv-app/VsWarranty
