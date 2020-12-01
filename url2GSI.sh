@@ -7,6 +7,7 @@ PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 AB=true
 AONLY=true
 MOUNTED=false
+DYNAMIC=false
 CLEAN=false
 
 usage()
@@ -38,6 +39,10 @@ case $key in
     ;;
     --cleanup|-c)
     CLEAN=true
+    shift
+    ;;
+    --dynamic|-d)
+    DYNAMIC=true
     shift
     ;;
     --help|-h|-?)
@@ -121,8 +126,17 @@ if [ $MOUNTED == false ]; then
         DOWNLOAD "$URL" "$ZIP_NAME"
         URL="$ZIP_NAME"
     fi
-    "$PROJECT_DIR"/zip2img.sh "$URL" "$PROJECT_DIR/working" || exit 1
-    export FIRMWARE_PATH=$URL
+     if [ $DYNAMIC == true ] ; then
+        if [ ${SRCTYPE} = "MIUI" ]
+              then
+              sudo bash $PROJECT_DIR/dynamicmiui.sh $ZIP_NAME
+              else
+              sudo bash $PROJECT_DIR/dyn.sh ${SRCTYPE} $ZIP_NAME
+         fi
+     elif [ $DYNAMIC == false ] ; then
+     "$PROJECT_DIR"/zip2img.sh "$URL" "$PROJECT_DIR/working" || exit 1
+     export FIRMWARE_PATH=$URL
+    fi
     if [ $CLEAN == true ]; then
         rm -rf "$ZIP_NAME"
     fi
