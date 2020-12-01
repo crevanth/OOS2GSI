@@ -39,7 +39,7 @@ rmdir product
 rm product.img
 
 cd $LOCALDIR
-cp -r $outdir/system $LOCALDIR
+cp -r $outdir/system $LOCALDIR/working/
 
 # Clean up
 echo "Cleaning up.."
