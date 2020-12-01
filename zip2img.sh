@@ -80,8 +80,8 @@ if [ ! "$2" == "" ]; then
     outdir="$(realpath $2)"
 fi
 tmpdir="$outdir/tmp"
-mkdir -p "$tmpdir"
 mkdir -p "$outdir"
+mkdir -p "$tmpdir"
 cd $tmpdir
 
 MAGIC=$(head -c12 $romzip | tr -d '\0')
