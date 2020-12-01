@@ -27,7 +27,11 @@ echo "Create Temp and out dir"
 
 unzip $2 -d $tmpdir &> /dev/null
 echo "Extracting Required Partitions . . . . "
-if [ $1 = "OxygenOS" ]; then
+if [ $1 = "MIUI" ]; then
+	bash $LOCALDIR/zip2img.sh $1 $outdir
+ 	bash $LOCALDIR/zip2img.sh $1 $outdir -p
+	mv $outdir/system.img $outdir/system-old.img
+elif [ $1 = "OxygenOS" ]; then
 		for partition in ${PARTITIONS[@]}; do
  	   	    python $payload_extractor --partitions $partition --output_dir $tmpdir $tmpdir/payload.bin 
 		done
