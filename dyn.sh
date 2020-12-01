@@ -3,10 +3,10 @@
 #Variables
 
 PARTITIONS=("system" "product" "opproduct")
-payload_extractor="tools/update_payload_extractor/extract.py"
 LOCALDIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+payload_extractor="$LOCALDIR/tools/update_payload_extractor/extract.py"
 outdir="$LOCALDIR/cache"
-tmpdir="$outdir/tmp"
+tmpdir="$LOCALDIR/cache/tmp"
 #############################################################
 
 usage() {
@@ -22,8 +22,8 @@ if [ "$1" == "" ]; then
 fi
 
 echo "Create Temp and out dir"
-	mkdir -p "$tmpdir"
 	mkdir -p "$outdir"
+	mkdir -p "$tmpdir"
 
 unzip $2 -d $tmpdir &> /dev/null
 echo "Extracting Required Partitions . . . . "
