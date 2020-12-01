@@ -11,5 +11,8 @@ rm -rf $1/priv-app/VinServiceApp
 rm -rf $1/priv-app/VDefense
 
 
+
+
+
 # Fix VOS Aris Warranty popup
 rm -rf system/priv-app/VsWarranty
