@@ -2,7 +2,7 @@
 
 #Variables
 
-PARTITIONS=("system" "product" "opproduct" "vendor" "reserve" "india")
+PARTITIONS=("system" "product" "opproduct" "vendor")
 LOCALDIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 payload_extractor="$LOCALDIR/tools/update_payload_extractor/extract.py"
 outdir="$LOCALDIR/cache"
@@ -39,8 +39,6 @@ elif [ $1 = "OxygenOS" ]; then
 	mv $tmpdir/product $outdir/product.img
 	mv $tmpdir/opproduct $outdir/opproduct.img
 	mv $tmpdir/vendor $outdir/vendor.img
-	mv $tmpdir/reserve $outdir/reserve.img
-	mv $tmpdir/india $outdir/india.img
 elif [ $(echo -n $1 | head -c 5) = "Pixel" ]; then
 	unzip $2 -d $tmpdir &> /dev/null
 	unzip $tmpdir/*/*.zip -d $tmpdir &> /dev/null
@@ -88,24 +86,6 @@ if [ $1 = "OxygenOS" ]; then
 	umount $outdir/opproduct
 	rmdir $outdir/opproduct/
 	rm $outdir/opproduct.img
-	echo "Merging india.img "
-	sudo mkdir $outdir/india
-	mount -o ro $outdir/india.img $outdir/india/
-	rm -rf system/system/india
-	mkdir system/system/india
-	cp -v -r -p $outdir/india/* system/system/india/ &> /dev/null
-	sync
-	umount $outdir/india
-	rmdir $outdir/india/
-	rm $outdir/india.img
-	echo "Merging reserve.img "
-	sudo mkdir $outdir/reserve
-	mount -o ro $outdir/reserve.img $outdir/reserve/
-	cp -v -r -p $outdir/reserve/* system/system/reserve/ &> /dev/null
-	sync
-	umount $outdir/reserve
-	rmdir $outdir/reserve/
-	rm $outdir/reserve.img
 	echo "Merging overlays "
 	sudo mkdir $outdir/vendor
 	mount -o ro $outdir/vendor.img $outdir/vendor/
