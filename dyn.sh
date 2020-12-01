@@ -4,7 +4,7 @@
 
 PARTITIONS=("system" "product" "opproduct" "vendor")
 LOCALDIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
-payload_extractor="$LOCALDIR/tools/update_payload_extractor/extract.py"
+payload_extractor="tools/update_payload_extractor/extract.py"
 outdir="$LOCALDIR/cache"
 tmpdir="$LOCALDIR/cache/tmp"
 #############################################################
