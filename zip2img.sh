@@ -14,10 +14,11 @@
 # KDDI .bin
 
 usage() {
-    echo "Usage: [--vendor|-v] $0 <Path to firmware> [Output Dir]"
+    echo "Usage: [--product|-v] $0 <Path to firmware> [Output Dir]"
     echo -e "\tPath to firmware: the zip!"
     echo -e "\tOutput Dir: the output dir!"
     echo -e "\t--vendor: Get only vendor.img"
+    echo -e "\t--product: Get only product.img"
 }
 
 
@@ -29,11 +30,21 @@ POSITIONAL=()
 while [[ $# -gt 0 ]]
 do
 key="$1"
-
 case $key in
     --vendor|-v)
     PARTITIONS="vendor"
     EXT4PARTITIONS="vendor"
+    shift
+    ;;
+    *)
+    POSITIONAL+=("$1")
+    shift
+    ;;
+esac
+case $key in
+    --product|-p)
+    PARTITIONS="product"
+    EXT4PARTITIONS="product"
     shift
     ;;
     *)
