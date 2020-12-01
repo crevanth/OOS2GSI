@@ -105,6 +105,8 @@ echo "Merging system_other.img "
     fi
 fi
 echo "Finalising "
-	mkdir out
+        sudo cp -r system/ $LOCALDIR/working
+	umount system
+	rm -rf system/
 	rm -rf system-old/
-echo "Please finish creating GSI using make.sh script"
+echo "Dynamic Script Done"
