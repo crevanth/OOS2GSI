@@ -14,7 +14,7 @@
 # KDDI .bin
 
 usage() {
-    echo "Usage: [--product|-v] $0 <Path to firmware> [Output Dir]"
+    echo "Usage: [--product|-p] [--vendor|-v] $0 <Path to firmware> [Output Dir]"
     echo -e "\tPath to firmware: the zip!"
     echo -e "\tOutput Dir: the output dir!"
     echo -e "\t--vendor: Get only vendor.img"
