@@ -26,12 +26,12 @@ echo "Create Temp and out dir"
 	mkdir -p "$tmpdir"
 
 echo "Extracting Required Partitions . . . . "
-if [ $1 = "MIUI" ]; then
+if [ $2 = "MIUI" ]; then
 	bash $LOCALDIR/zip2img.sh $2 $outdir
  	bash $LOCALDIR/zip2img.sh $2 $outdir -p
 	mv $outdir/system.img $outdir/system-old.img
-elif [ $1 = "OxygenOS" ]; then
-	unzip $2 -d $tmpdir &> /dev/null
+elif [ $2 = "OxygenOS" ]; then
+	unzip $1 -d $tmpdir &> /dev/null
 		for partition in ${PARTITIONS[@]}; do
  	   	    python $payload_extractor --partitions $partition --output_dir $tmpdir $tmpdir/payload.bin 
 		done
@@ -39,13 +39,13 @@ elif [ $1 = "OxygenOS" ]; then
 	mv $tmpdir/product $outdir/product.img
 	mv $tmpdir/opproduct $outdir/opproduct.img
 	mv $tmpdir/vendor $outdir/vendor.img
-elif [ $(echo -n $1 | head -c 5) = "Pixel" ]; then
-	unzip $2 -d $tmpdir &> /dev/null
+elif [ $(echo -n $2 | head -c 5) = "Pixel" ]; then
+	unzip $1 -d $tmpdir &> /dev/null
 	unzip $tmpdir/*/*.zip -d $tmpdir &> /dev/null
 	simg2img $tmpdir/system.img $outdir/system-old.img
 	simg2img $tmpdir/product.img $outdir/product.img
 	simg2img $tmpdir/system_other.img $outdir/system_other.img
- 	if [ $(echo -n $1 | tail -c 1) = "R" ]; then
+ 	if [ $(echo -n $2 | tail -c 1) = "R" ]; then
 	    simg2img $tmpdir/system_ext.img $outdir/system_ext.img
 	fi
 fi
@@ -77,7 +77,7 @@ echo "Merging product.img "
 	umount $outdir/product
 	rmdir $outdir/product/
 	rm $outdir/product.img
-if [ $1 = "OxygenOS" ]; then
+if [ $2 = "OxygenOS" ]; then
 	echo "Merging opproduct.img "
 	sudo mkdir $outdir/opproduct
 	mount -o ro $outdir/opproduct.img $outdir/opproduct/
@@ -97,7 +97,7 @@ if [ $1 = "OxygenOS" ]; then
 	umount $outdir/vendor
 	rmdir $outdir/vendor/
 	rm $outdir/vendor.img
-elif [ $(echo -n $1 | head -c 5) = "Pixel" ]; then
+elif [ $(echo -n $2 | head -c 5) = "Pixel" ]; then
 echo "Merging system_other.img "
 	sudo mkdir $outdir/system_other
 	mount -o ro $outdir/system_other.img $outdir/system_other/
@@ -106,7 +106,7 @@ echo "Merging system_other.img "
 	umount $outdir/system_other
 	rmdir $outdir/system_other/
 	rm $outdir/system_other.img
-    if [  $(echo -n $1 | tail -c 1) = "R" ]; then
+    if [  $(echo -n $2 | tail -c 1) = "R" ]; then
         echo "Merging system_ext.img "
 	    sudo mkdir $outdir/system_ext
 	    mount -o ro $outdir/system_ext.img $outdir/system_ext/
