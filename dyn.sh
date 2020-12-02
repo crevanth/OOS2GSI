@@ -89,7 +89,7 @@ if [ $1 = "OxygenOS" ]; then
 	rm -rf $outdir/overlay/*.apk
 	cp -v -r -p $outdir/overlay/* system/system/product/overlay/ &> /dev/null
 	sync
-	rmdir $outdir/overlay/
+	rm -rf $outdir/overlay
 	umount $outdir/vendor
 	rmdir $outdir/vendor/
 	rm $outdir/vendor.img
@@ -132,7 +132,6 @@ echo "Merging system_other . . . . "
     fi
 fi
 echo "Finalising "
-        mkdir working/
         cp -r system working/ &> /dev/null
 	umount system
         rm -rf cache
