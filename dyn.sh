@@ -2,7 +2,7 @@
 
 #Variables
 
-PARTITIONS=("system" "product" "opproduct" "vendor")
+PARTITIONS=("system" "product" "opproduct" "reserve" "vendor" "system_ext")
 LOCALDIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 payload_extractor="tools/update_payload_extractor/extract.py"
 outdir="$LOCALDIR/cache"
@@ -27,7 +27,11 @@ echo "Create Temp and out dir"
 	unzip $2 -d $tmpdir &> /dev/null
 
 echo "Extracting Required Partitions . . . . "
-if [ $1 = "MIUI" ]; then
+if [ $1 = "Generic" ]; then
+	bash $LOCALDIR/zip2img.sh $2 $outdir
+ 	bash $LOCALDIR/zip2img.sh $2 $outdir -p
+	mv $outdir/system.img $outdir/system-old.img
+elif [ $1 = "MIUI" ]; then
 	bash $LOCALDIR/zip2img.sh $2 $outdir
  	bash $LOCALDIR/zip2img.sh $2 $outdir -p
 	mv $outdir/system.img $outdir/system-old.img
@@ -39,6 +43,10 @@ elif [ $1 = "OxygenOS" ]; then
 	mv $tmpdir/product $outdir/product.img
 	mv $tmpdir/opproduct $outdir/opproduct.img
 	mv $tmpdir/vendor $outdir/vendor.img
+	mv $tmpdir/reserve $outdir/reserve.img
+ 	if [ $(echo -n $1 | tail -c 1) = "R" ]; then
+	   mv $tmpdir/system_ext.img $outdir/system_ext.img
+	fi
 elif [ $(echo -n $1 | head -c 5) = "Pixel" ]; then
 	unzip $tmpdir/*/*.zip -d $tmpdir &> /dev/null
 	simg2img $tmpdir/system.img $outdir/system-old.img
@@ -85,6 +93,14 @@ if [ $1 = "OxygenOS" ]; then
 	umount $outdir/opproduct
 	rmdir $outdir/opproduct/
 	rm $outdir/opproduct.img
+	echo "Merging reserve.img "
+	sudo mkdir $outdir/reserve
+	mount -o ro $outdir/reserve.img $outdir/reserve/
+	cp -v -r -p $outdir/reserve/* system/system/reserve/ &> /dev/null
+	sync
+	umount $outdir/reserve
+	rmdir $outdir/reserve/
+	rm $outdir/reserve.img
 	echo "Merging overlays "
 	sudo mkdir $outdir/vendor
 	mount -o ro $outdir/vendor.img $outdir/vendor/
@@ -96,6 +112,19 @@ if [ $1 = "OxygenOS" ]; then
 	umount $outdir/vendor
 	rmdir $outdir/vendor/
 	rm $outdir/vendor.img
+	if [  $(echo -n $1 | tail -c 1) = "R" ]; then
+        echo "Merging system_ext.img "
+	    sudo mkdir $outdir/system_ext
+	    mount -o ro $outdir/system_ext.img $outdir/system_ext/
+	    rm -rf system/system_ext
+	    rm -rf system/system/system_ext
+	    mkdir system/system/system_ext
+	    ln -s system/system_ext system/system_ext
+	    cp -v -r -p $outdir/system_ext/* system/system/system_ext/ &> /dev/null
+	    sync
+	    umount $outdir/system_ext
+	    rmdir $outdir/system_ext/
+	    rm $outdir/system_ext.img
 elif [ $(echo -n $1 | head -c 5) = "Pixel" ]; then
 echo "Merging system_other.img "
 	sudo mkdir $outdir/system_other
