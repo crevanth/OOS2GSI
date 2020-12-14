@@ -5,6 +5,7 @@ thispath=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
 
 rm -rf $1/etc/GeoIP2-City.mmdb
 rm -rf $1/etc/apps/in
+rm -rf $1/etc/usb_drivers.iso
 
 # RIL FIX
 rm -rf $1/product/framework/op-telephony-common.jar
