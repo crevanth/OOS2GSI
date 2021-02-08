@@ -7,7 +7,6 @@ PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 AB=true
 AONLY=true
 MOUNTED=false
-DYNAMIC=false
 CLEAN=false
 
 usage()
@@ -39,10 +38,6 @@ case $key in
     ;;
     --cleanup|-c)
     CLEAN=true
-    shift
-    ;;
-    --dynamic|-d)
-    DYNAMIC=true
     shift
     ;;
     --help|-h|-?)
@@ -126,16 +121,12 @@ if [ $MOUNTED == false ]; then
         DOWNLOAD "$URL" "$ZIP_NAME"
         URL="$ZIP_NAME"
     fi
-     if [ $DYNAMIC == true ] ; then
-         sudo bash $PROJECT_DIR/dyn.sh ${SRCTYPE} $ZIP_NAME
-     elif [ $DYNAMIC == false ] ; then
      "$PROJECT_DIR"/zip2img.sh "$URL" "$PROJECT_DIR/working" || exit 1
      export FIRMWARE_PATH=$URL
-     MOUNT "$PROJECT_DIR/working/system.img"
-    fi
     if [ $CLEAN == true ]; then
         rm -rf "$ZIP_NAME"
     fi
+    MOUNT "$PROJECT_DIR/working/system.img"
     URL="$PROJECT_DIR/working/system"
 fi
 
@@ -147,9 +138,7 @@ if [ $AONLY == true ]; then
     "$PROJECT_DIR"/make.sh "${URL}" "${SRCTYPE}" Aonly "$PROJECT_DIR/output" ${@} || LEAVE
 fi
 
-if [ $DYNAMIC == false ] ; then
 UMOUNT "$PROJECT_DIR/working/system"
-fi
 rm -rf "$PROJECT_DIR/working"
 
 echo "Porting ${SRCTYPENAME} GSI done on: $PROJECT_DIR/output"
