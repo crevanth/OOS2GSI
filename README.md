@@ -1,36 +1,35 @@
-## Welcome to my area, imma may help may no but m a big nub
-    Feel free to use but at least gib credits for all peru's that work hard for you!
+## Hi and Welcome to my area!
+Feel free to use but at least gib credits for all peru's that work hard for this to keep alive!  
 
 ## Credits
-    This repo is just a clone from peru's everywhere and kang from them
-    Imma will add proper credits here and with commits but uhmm
-    Thanks for our Boss Erfan Abdi for his tools
-    Thanks for all perus "Jamie, YukoSky, HeliOS, ElytrA8" for help and all :)
-    Thanks VegaZS for his python BoboBot and YukoSky for repo :)
+This repo is just a clone from peru's everywhere  
+Thanks for Erfan Abdi for his OwO tools  
+Thanks for all perus "Jamie, YukoSky, HeliOS, ElytrA8" for all :)  
+Thanks VegaZS for his Java BoboBot  
 
-## Downloads
+## Downloads "NipponGSIs"
 Download ported GSI's from here!: https://sourceforge.net/projects/nippongsi/files/  
-Join us in telegram!: https://t.me/nippongsi_support 
-For updates follow here!: https://t.me/nippongsi
+Join us in telegram!: https://t.me/nippongsi_support  
+For updates follow here!: https://t.me/nippongsi  
 
 ## Requirements
-    Linux or Mac
+    Linux
 
-## Released GSIs
+## Released GSIs "ErfanGSIs"
 Download links: https://mirrors.lolinet.com/firmware/gsi/  
 XDA thread: https://forum.xda-developers.com/project-treble/trebleenabled-device-development/pie-erfan-gsi-ports-t3906486  
 Telegram group: https://t.me/ErfanGSIs  
 Telegram channel: https://t.me/ErfanGSI  
 
-## How to use
+## How to use? follow below instructions
 
 ### Download tools
 ```
-git clone --recurse-submodules https://github.com/nnippon/ErfanGSIs.git
+git clone --recurse-submodules https://github.com/erfanoabdi/ErfanGSIs.git
+cd ErfanGSIs
 ```
 
 ### For setting up requirements
-    cd ErfanGSIs
     bash setup.sh
 
 ### Generating GSI from stock firmware URL
