@@ -16,7 +16,7 @@ echo "DEVICE_PROVISIONED=1" >> $1/build.prop
 # Set locale to en-US
 sed -i 's/zh-CN/en-US/g' $1/build.prop
 
-# Custom Manifest   
+# Custom Manifest
 python $thispath/../../../scripts/custom_manifest.py $thispath/../../../tmp/manifest.xml $thispath/manifest.xml $1/etc/vintf/manifest.xml
 cp -fpr $thispath/../../../tmp/manifest.xml $1/etc/vintf/manifest.xml
 
