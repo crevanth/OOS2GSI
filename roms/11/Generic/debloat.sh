@@ -3,7 +3,7 @@
 systempath=$1
 thispath=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
 
-
+# Drop useless things
 rm -rf $1/product/app/CalendarGooglePrebuilt
 rm -rf $1/product/app/CalculatorGooglePrebuilt
 rm -rf $1/product/app/Chrome
@@ -19,8 +19,6 @@ rm -rf $1/product/app/ModuleMetadataGoogle
 rm -rf $1/product/app/Maps
 rm -rf $1/product/app/PrebuiltGmail
 rm -rf $1/product/app/SoundAmplifierPrebuilt
-rm -rf $1/product/app/TrichromeLibrary
-rm -rf $1/product/app/TrichromeLibrary-Stub
 rm -rf $1/product/app/Tycho
 rm -rf $1/product/app/talkback
 rm -rf $1/product/app/arcore
