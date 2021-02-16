@@ -19,7 +19,7 @@ if [ $1 = "Generic" ]; then
         unzip $2 -d $tmpdir &> /dev/null
         if [ -f "$tmpdir/payload.bin" ]
         then
-        python $payload_extractor --out $outdir $tmpdir/payload.bin &> /dev/null
+        python3 $payload_extractor --out $outdir $tmpdir/payload.bin &> /dev/null
         else
         bash $LOCALDIR/zip2img.sh $2 $outdir
         fi
@@ -29,7 +29,7 @@ elif [ $1 = "MIUI" ]; then
 	unzip $2 -d $tmpdir &> /dev/null
         if [ -f "$tmpdir/payload.bin" ]
         then
-        python $payload_extractor --out $outdir $tmpdir/payload.bin &> /dev/null
+        python3 $payload_extractor --out $outdir $tmpdir/payload.bin &> /dev/null
         else
         bash $LOCALDIR/zip2img.sh $2 $outdir
         fi
@@ -37,7 +37,7 @@ elif [ $1 = "MIUI" ]; then
 elif [ $1 = "OxygenOS" ]; then
         echo "OnePlus OTA Detected, Extracting . .  . ."
         unzip $2 -d $tmpdir &> /dev/null
-        python $payload_extractor --out $outdir $tmpdir/payload.bin &> /dev/null
+        python3 $payload_extractor --out $outdir $tmpdir/payload.bin &> /dev/null
         mv $outdir/system.img $outdir/system-old.img
 elif [ $1 = "Pixel" ]; then
         echo "Pixel OTA Detected, Extracting . . . . "
