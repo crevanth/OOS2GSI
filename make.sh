@@ -4,7 +4,7 @@
 
 usage()
 {
-echo "Usage: $0 <Path to GSI system> <Firmware type> <Output type> [Output Dir]"
+echo "Usage: $0 <Path to Firmware partitions> <Firmware type> <Output type> [Output Dir]"
     echo -e "\tPath to Firmware partitions: Mounted system or all partitions mount point"
     echo -e "\tFirmware type: Firmware mode"
     echo -e "\tOutput type: AB or Aonly"
