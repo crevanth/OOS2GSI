@@ -4,6 +4,3 @@
 [submodule "tools/ROM_resigner"]
 	path = tools/ROM_resigner
 	url = https://github.com/erfanoabdi/ROM_resigner.git
-[submodule "payload"]
-	path = payload
-	url = https://github.com/vm03/payload_dumper
