@@ -42,15 +42,8 @@ rm -rf $1/product/app/DiagnosticsToolPrebuilt
 rm -rf $1/product/app/Drive
 rm -rf $1/product/app/GoogleCamera
 rm -rf $1/product/app/Photos
-rm -rf $1/product/app/MarkupGoogle
-rm -rf $1/product/app/MicropaperPrebuilt
-rm -rf $1/product/app/ModuleMetadataGoogle
 rm -rf $1/product/app/Maps
 rm -rf $1/product/app/PrebuiltGmail
-rm -rf $1/product/app/SoundAmplifierPrebuilt
-rm -rf $1/product/app/Tycho
-rm -rf $1/product/app/talkback
-rm -rf $1/product/app/arcore
 rm -rf $1/product/app/YouTubeMusicPrebuilt
 rm -rf $1/product/app/YouTube
 rm -rf $1/product/app/Videos
