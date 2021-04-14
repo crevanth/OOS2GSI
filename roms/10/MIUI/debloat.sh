@@ -4,7 +4,7 @@ systempath=$1
 thispath=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
 
 # Nuke MIUI useless system apks
-rm -rf $1/app/Cit
+rm -rf $1/app/cit
 rm -rf $1/app/MiuiCompass
 rm -rf $1/app/MiuiVideoGlobal
 rm -rf $1/app/PaymentService
@@ -16,7 +16,6 @@ rm -rf $1/app/NextPay
 rm -rf $1/app/com.miui.qr
 rm -rf $1/app/MiuiBugReport
 rm -rf $1/app/AnalyticsCore
-rm -rf $1/app/BasicDreams
 rm -rf $1/app/BugReport
 rm -rf $1/app/Drive
 rm -rf $1/app/Duo
@@ -117,7 +116,6 @@ rm -rf $1/priv-app/LocalTransport
 rm -rf $1/priv-app/MiMover
 rm -rf $1/priv-app/QuickSearchBox
 rm -rf $1/priv-app/FusedLocation
-rm -rf $1/priv-app/MiGameCenterSDKService
 rm -rf $1/priv-app/MiRcs
 rm -rf $1/priv-app/NewHome
 
