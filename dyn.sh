@@ -113,16 +113,6 @@ if [ $1 = "OxygenOS" ]; then
 	sync
         umount -l $outdir/reserve
      fi
-     if [ -f "$outdir/india.img" ]; then
-	echo "Merging india . . . . "
-        rm -rf working/system/system/india
-        mkdir working/system/system/india
-	mkdir $outdir/india
-	mount -o ro $outdir/india.img $outdir/india/
-	cp -v -r -p $outdir/india/* working/system/system/india/ &> /dev/null
-	sync
-        umount -l $outdir/india
-     fi
 echo "Merging overlays . . . . "
 	mkdir $outdir/vendor
 	mount -o ro $outdir/vendor.img $outdir/vendor/
