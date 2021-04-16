@@ -9,9 +9,8 @@ outdir="$LOCALDIR/cache"
 
 echo "Ensure everything is fine for start . . . . "
 	rm -rf $outdir $working
-	bash update.sh
 
-echo "Creating folders to start process . . . . "
+echo "Creating cache and work folders . . . . "
 	mkdir -p "$outdir" "$working"
 
 echo "Extracting ROM zip . . . . "
@@ -19,9 +18,9 @@ echo "Extracting ROM zip . . . . "
 	mv $outdir/system.img $outdir/system-old.img
 
 echo "Creating 6GB empty image . . . . "
-dd if=/dev/zero of=system.img bs=6k count=1048576
-mkfs.ext4 system.img
-tune2fs -c0 -i0 system.img
+	dd if=/dev/zero of=system.img bs=6k count=1048576
+	mkfs.ext4 system.img
+	tune2fs -c0 -i0 system.img
 
 echo "Merging system . . . . "
 	mkdir $outdir/system-old
@@ -106,6 +105,7 @@ if [ -f "$outdir/vendor.img" ]; then
 	umount -l $outdir/vendor
 fi
 
+echo "Deleting cache . . . . "
 rm -rf $outdir
 
 echo "Done"
