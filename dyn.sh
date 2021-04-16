@@ -113,6 +113,24 @@ if [ $1 = "OxygenOS" ]; then
 	sync
         umount -l $outdir/reserve
      fi
+     if [ -f "$outdir/odm.img" ]; then
+	echo "Merging odm . . . . "
+	mkdir $outdir/odm
+	mount -o ro $outdir/odm.img $outdir/odm/
+	cp -v -r -p $outdir/odm/etc/odm_feature_list working/system/system/etc/ &> /dev/null
+	cp -v -r -p $outdir/odm/overlay/* working/system/system/product/overlay/ &> /dev/null
+	sync
+        umount -l $outdir/odm
+     fi
+     if [ -f "$outdir/vendor.img" ]; then
+	echo "Merging vendor overlays . . . . "
+	mkdir $outdir/vendor
+	mount -o ro $outdir/vendor.img $outdir/vendor/
+	cp -v -r -p $outdir/vendor/overlay/oneplus_* working/system/system/product/overlay/ &> /dev/null
+	cp -v -r -p $outdir/vendor/overlay/VendorOverlay* working/system/system/product/overlay/ &> /dev/null
+	sync
+        umount -l $outdir/vendor
+     fi
 echo "Merging overlays . . . . "
 	mkdir $outdir/vendor
 	mount -o ro $outdir/vendor.img $outdir/vendor/
