@@ -3,6 +3,8 @@
 systempath=$1
 thispath=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
 
+rsync -ra $thispath/system/ $systempath
+
 # Featurelist patching 
 sed -i "s/\[97\]\ UnKnown\ =\ true/\[97\]\ UnKnown\ =\ false/g" $1/etc/odm_feature_list
 sed -i "s/\[235\]\ UnKnown\ =\ true/\[235\]\ UnKnown\ =\ false/g" $1/etc/odm_feature_list
