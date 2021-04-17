@@ -21,3 +21,8 @@ sed -i "s/vendor.pixelworks.hardware.feature/vendor.irisgay.hardware.feature/g" 
 
 # Shut up bitch
 rm -rf $1/system_ext/app/OPBackup
+
+# stfu
+echo "ro.vendor.display.svi=0" >> $1/product/build.prop 
+echo "ro.vendor.display.svi=0" >> $1/etc/prop.default 
+echo "ro.vendor.display.svi=0" >> $1/system_ext/build.prop
