@@ -92,6 +92,11 @@ if grep -q post_process_props $1/product/etc/build.prop; then
     cp -fpr $1/../../build.prop $1/product/etc/
 fi
 
+# uinput for xiaomi
+rm -rf $1/usr/keylayout/uinput-fpc.kl 
+rm -rf $1/usr/keylayout/uinput-goodix.kl 
+touch $1/usr/keylayout/uinput-fpc.kl 
+touch $1/usr/keylayout/uinput-goodix.kl 
 
 ## Append to phh script
 cat $thispath/rw-system.add.sh >> $1/bin/rw-system.sh
