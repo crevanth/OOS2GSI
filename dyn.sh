@@ -96,9 +96,14 @@ if [ -f "$outdir/odm.img" ]; then
 fi
 
 if [ -f "$outdir/vendor.img" ]; then
-	echo "Merging vendor overlays . . . . "
 	mkdir $outdir/vendor
 	mount -o ro $outdir/vendor.img $outdir/vendor/
+	if [[ -f "$outdir/vendor/etc/device_features/ " ]]; then 
+		echo "Merging device features..."
+		mkdir -p $working/system/etc/device_features/
+		cp -v -r -p $outdir/vendor/etc/device_features/* $working/system/etc/device_features/
+	fi
+	echo "Merging vendor overlays . . . . "
 	cp -v -r -p $outdir/vendor/overlay/oneplus_* $working/system/product/overlay/ &> /dev/null
 	cp -v -r -p $outdir/vendor/overlay/VendorOverlay* $working/system/product/overlay/ &> /dev/null
 	sync
