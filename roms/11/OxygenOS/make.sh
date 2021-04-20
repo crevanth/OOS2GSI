@@ -26,3 +26,6 @@ rm -rf $1/system_ext/app/OPBackup
 echo "ro.vendor.display.svi=0" >> $1/product/build.prop 
 echo "ro.vendor.display.svi=0" >> $1/etc/prop.default 
 echo "ro.vendor.display.svi=0" >> $1/system_ext/build.prop
+echo "persist.vendor.fps.force.disable=true" >> $1/product/build.prop 
+echo "persist.vendor.fps.force.disable=true" >> $1/etc/prop.default 
+echo "persist.vendor.fps.force.disable=true" >> $1/system_ext/build.prop
