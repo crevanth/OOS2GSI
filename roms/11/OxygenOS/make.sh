@@ -32,3 +32,6 @@ echo "persist.vendor.fps.force.disable=true" >> $1/system_ext/build.prop
 
 ## Fix OOS Data, kang from flyme fix Permission
 chmod 0644 $1/etc/init/flymedata.rc
+
+# append extra rw-system.sh
+cat $thispath/rw-system.add.sh >> $1/bin/rw-system.sh
