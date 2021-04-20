@@ -28,3 +28,7 @@ rm -rf $1/priv-app/OnePlusCamera
 rm -rf $1/reserve/By_*
 rm -rf $1/priv-app/By_*
 rm -rf $1/app/By_*
+
+# Temp fix for ril
+rm -rf $1/system_ext/framework/qti-telephony-common.jar
+rm -rf $1/system_ext/framework/op-telephony-common.jar
