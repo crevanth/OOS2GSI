@@ -35,3 +35,9 @@ chmod 0644 $1/etc/init/flymedata.rc
 
 # append extra rw-system.sh
 cat $thispath/rw-system.add.sh >> $1/bin/rw-system.sh
+
+# Remove system DPI definitions
+sed -i "/ro.sf.lcd_density/d" $1/build.prop 
+sed -i "/ro.sf.lcd_density/d" $1/product/build.prop 
+sed -i "/ro.sf.lcd_density/d" $1/system_ext/build.prop 
+sed -i "/ro.sf.lcd_density/d" $1/etc/prop.default
