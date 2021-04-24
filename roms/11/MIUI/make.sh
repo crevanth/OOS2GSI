@@ -6,10 +6,11 @@ thispath=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
 # Disable setup wizard
 echo "DEVICE_PROVISIONED=1" >> $1/build.prop
 
-# FOD 
+# FOD
 echo "ro.hardware.fp.fod=true" >> $1/build.prop
 echo "persist.vendor.sys.fp.fod.location.X_Y=445,1260" >> $1/build.prop
 echo "persist.vendor.sys.fp.fod.size.width_height=190,190" >> $1/build.prop
+sed -i "/miui.notch/d" $1/build.prop
 
 # drop nfc
 rm -rf $1/system_ext/app/NQNfcNci
