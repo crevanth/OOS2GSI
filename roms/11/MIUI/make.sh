@@ -17,3 +17,5 @@ rm -rf $1/system_ext/app/NQNfcNci
 
 # round cockners
 sed -i 's/<bool name="support_round_corner">true/<bool name="support_round_corner">false/' $1/etc/device_features/*
+
+cat $thispath/rw-system.add.sh >> $1/bin/rw-system.sh
