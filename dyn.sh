@@ -7,17 +7,18 @@ extractor="$LOCALDIR/tools/Firmware_extractor/extractor.sh"
 working="$LOCALDIR/work"
 outdir="$LOCALDIR/cache"
 
-echo "Ensure everything is fine for start . . . . "
+echo "Clearing . . . . "
 	rm -rf $outdir $working
+	bash update.sh
 
-echo "Creating cache and work folders . . . . "
+echo "Creating folders . . . . "
 	mkdir -p "$outdir" "$working"
 
-echo "Extracting ROM zip . . . . "
+echo "Extracting ROM . . . . "
 	bash $extractor $1 $outdir
 	mv $outdir/system.img $outdir/system-old.img
 
-echo "Creating 6GB empty image . . . . "
+echo "Creating dummy image . . . . "
 	dd if=/dev/zero of=system.img bs=6k count=1048576
 	mkfs.ext4 system.img
 	tune2fs -c0 -i0 system.img
@@ -56,18 +57,11 @@ echo "Merging system_ext . . . . "
 	umount -l $outdir/system_ext
 fi
 
-if [ -f "$outdir/system_other.img" ]; then
-	echo "Merging system_other . . . . "
-	mkdir $outdir/system_other
-	mount -o ro $outdir/system_other.img $outdir/system_other/
-	cp -v -r -p $outdir/system_other/* $working/system/ &> /dev/null
-	sync
-	umount -l $outdir/system_other
-fi
-
 if [ -f "$outdir/opproduct.img" ]; then
 	echo "Merging opproduct . . . . "
 	mkdir $outdir/opproduct
+	rm -rf $working/oneplus
+	mkdir $working/oneplus
 	mount -o ro $outdir/opproduct.img $outdir/opproduct/
 	cp -v -r -p $outdir/opproduct/* $working/oneplus/ &> /dev/null
 	sync
@@ -109,8 +103,5 @@ if [ -f "$outdir/vendor.img" ]; then
 	sync
 	umount -l $outdir/vendor
 fi
-
-echo "Deleting cache . . . . "
-rm -rf $outdir
 
 echo "Done"
