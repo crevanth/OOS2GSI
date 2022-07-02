@@ -35,11 +35,11 @@ if [ -f "$outdir/product.img" ]; then
 echo "Merging product . . . . "
 	rm -rf $working/product
 	ln -s $working/product $working/product
-	rm -rf $working/system/product
-	mkdir $working/system/product
+	rm -rf $working/product
+	mkdir $working/product
 	mkdir $outdir/product
 	mount -o ro $outdir/product.img $outdir/product
-	cp -v -r -p $outdir/product/* $working/system/product/ &> /dev/null
+	cp -v -r -p $outdir/product/* $working/product/ &> /dev/null
 	sync
 	umount -l $outdir/product
 fi
@@ -49,10 +49,10 @@ echo "Merging system_ext . . . . "
 	mkdir $outdir/system_ext
 	mount -o ro $outdir/system_ext.img $outdir/system_ext/
 	rm -rf $working/system_ext
-	rm -rf $working/system/system_ext
-	mkdir $working/system/system_ext
+	rm -rf $working/system_ext
+	mkdir $working/system_ext
 	ln -s $working/system_ext $working/system_ext
-	cp -v -r -p $outdir/system_ext/* $working/system/system_ext/ &> /dev/n$
+	cp -v -r -p $outdir/system_ext/* $working/system_ext/ &> /dev/n$
 	sync
 	umount -l $outdir/system_ext
 fi
@@ -84,7 +84,7 @@ if [ -f "$outdir/odm.img" ]; then
 	mkdir $outdir/odm
 	mount -o ro $outdir/odm.img $outdir/odm/
 	cp -v -r -p $outdir/odm/etc/odm_feature_list $working/system/etc/ &> /dev/null
-	cp -v -r -p $outdir/odm/overlay/* $working/system/product/overlay/ &> /dev/null
+	cp -v -r -p $outdir/odm/overlay/* $working/product/overlay/ &> /dev/null
 	sync
 	umount -l $outdir/odm
 fi
