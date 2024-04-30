@@ -83,6 +83,7 @@ scriptsdir="$LOCALDIR/scripts"
 echo "Create Temp dir"
 rm -rf $tempdir
 mkdir -p "$systemdir"
+rm -rf mi_ext.img
 
 if [ "$sourcetype" == "Aonly" ]; then
     echo "Warning: Aonly source detected, using P AOSP ramdisk"
@@ -117,13 +118,6 @@ else
     echo "ro.build.system_root_image=true" >> "$systemdir/system/build.prop"
 fi
 
-# Detect is the src treble ro.treble.enabled=true
-istreble=`cat $systemdir/system/build.prop | grep ro.treble.enabled | cut -d "=" -f 2`
-if [[ ! "$istreble" == "true" ]]; then
-    echo "The source is not treble supported"
-    exit 1
-fi
-
 # Detect Source API level
 if grep -q ro.build.version.release_or_codename $systemdir/system/build.prop; then
     sourcever=`grep ro.build.version.release_or_codename $systemdir/system/build.prop | cut -d "=" -f 2`
@@ -139,6 +133,9 @@ case "$sourcever" in
     *"10"*) flag=true ;;
     *"11"*) flag=true ;;
     *"12"*) flag=true ;;
+    *"13"*) flag=true ;;
+    *"14"*) flag=true ;;
+    *"15"*) flag=true ;;
 esac
 if [ "$flag" == "false" ]; then
     echo "$sourcever is not supported"
@@ -156,10 +153,6 @@ if [[ ! -f "$systemdir/system/lib64/libandroid.so" ]]; then
     echo "32bit source detected, weird flex but ok!"
     # do something here?
 fi
-
-# Debloat
-$romsdir/$sourcever/$romtype/debloat.sh "$systemdir/system" 2>/dev/null
-$romsdir/$sourcever/$romtype/$romtypename/debloat.sh "$systemdir/system" 2>/dev/null
 
 # Resign to AOSP keys
 if [[ ! -e $romsdir/$sourcever/$romtype/$romtypename/DONTRESIGN ]]; then
@@ -210,9 +203,9 @@ if [ "$outputtype" == "Aonly" ]; then
 fi
 
 date=`date +%Y%m%d`
-outputname="$romtypename-$outputtype-$sourcever-$date-ErfanGSI"
+outputname="$romtypename-$outputtype-$sourcever-$date-ErfanGSI-tosasitill"
 outputimagename="$outputname".img
-outputtextname="$outputname".txt
+outputtextname=build_info.txt
 if [ "$4" == "" ]; then
     echo "Create out dir"
     outdirname="out"
@@ -237,6 +230,28 @@ displayid2=$(echo "$displayid" | sed 's/\./\\./g')
 bdisplay=$(grep "$displayid" $systemdir/system/build.prop | sed 's/\./\\./g; s:/:\\/:g; s/\,/\\,/g; s/\ /\\ /g')
 sed -i "s/$bdisplay/$displayid2=Built\.with\.ErfanGSI\.Tools/" $systemdir/system/build.prop
 
+
+  # 为所有rom删除qti_permissions
+find $systemdir -type f -name "qti_permissions.xml" | xargs rm -rf
+
+sed -i '/media.settings.xml/d' $systemdir/system/build.prop
+find $systemdir -type d -name "firmware" | xargs rm -rf
+find $systemdir -type d -name "avb" | xargs rm -rf
+
+  # 为所有rom删除firmware
+find $systemdir -type d -name "firmware" | xargs rm -rf
+
+  # 为所有rom删除avb
+find $systemdir -type d -name "avb" | xargs rm -rf
+  
+  # 为所有rom删除com.qualcomm.location
+find $systemdir -type d -name "com.qualcomm.location" | xargs rm -rf
+
+  # 为所有rom删除多余文件
+rm -rf ./out/system/verity_key
+rm -rf ./out/system/init.recovery*
+rm -rf $systemdir/recovery-from-boot.*
+
 # Getting system size and add approximately 5% on it just for free space
 systemsize=`du -sk $systemdir | awk '{$1*=1024;$1=int($1*1.05);printf $1}'`
 bytesToHuman() {
@@ -248,7 +263,9 @@ bytesToHuman() {
     done
     echo "$b$d ${S[$s]}"
 }
-echo "Raw Image Size: $(bytesToHuman $systemsize)" >> "$outputinfo"
+echo "原镜像合并后大小: $(bytesToHuman $systemsize)" >> "$outputinfo"
+echo "构建 ROM 类型：$romtype" >> "$outputinfo"
+echo "--------Be redesigned by tosasitill 0202 & 0227--------" >> "$outputinfo"
 
 echo "Creating Image: $outputimagename"
 # Use ext4fs to make image in P or older!

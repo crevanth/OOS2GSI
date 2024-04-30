@@ -1,18 +1,19 @@
 ## Requirements
-    Linux or Mac
+    Linux, WSL or Mac
 
 ## Released GSIs
 Download links: https://mirrors.lolinet.com/firmware/gsi/  
 XDA thread: https://forum.xda-developers.com/project-treble/trebleenabled-device-development/pie-erfan-gsi-ports-t3906486  
 Telegram group: https://t.me/ErfanGSIs  
-Telegram channel: https://t.me/ErfanGSI  
+Telegram channel: https://t.me/ErfanGSI
+- Outdated
 
 ## How to use
 
 ### Download tools
 ```
-git clone --recurse-submodules https://github.com/erfanoabdi/ErfanGSIs.git
-cd ErfanGSIs
+git clone --recurse-submodules https://github.com/Dachoni03/RakijaGSIs
+cd RakijaGSIs
 ```
 
 ### For setting up requirements
