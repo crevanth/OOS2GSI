@@ -1,0 +1,46 @@
+diff --git a/make.sh b/make.sh
+index abc1234..def5678 100755
+--- a/make.sh
++++ b/make.sh
+@@
+-SUPPORTED_ANDROID=("10" "11" "12" "13" "14")
++SUPPORTED_ANDROID=("10" "11" "12" "13" "14" "16")
+
+ if [[ ! " ${SUPPORTED_ANDROID[@]} " =~ " ${VERSION} " ]]; then
+     echo "Unsupported Android version: $VERSION"
+     exit 1
+ fi
+diff --git a/url2GSI.sh b/url2GSI.sh
+index 89abcde..76cdeff 100755
+--- a/url2GSI.sh
++++ b/url2GSI.sh
+@@
+ OTA_URL="$1"
+
++# Extract OTA filename
++FILENAME=$(basename "$OTA_URL")
++
++# Check if OTA is already downloaded
++if [ -f "$FILENAME" ]; then
++    echo "✔️ OTA already downloaded: $FILENAME — skipping"
++else
++    echo "⏬ Downloading OTA: $FILENAME"
++    wget -c "$OTA_URL" -O "$FILENAME"
++    if [ $? -ne 0 ]; then
++        echo "❌ Download failed for $OTA_URL"
++        exit 1
++    fi
++fi
++
++case "$VERSION" in
++    10|11|12|13|14)
++        echo "✔️ Recognized Android $VERSION"
++        ;;
++    16)
++        echo "⚠️ Android 16 (Vanilla Ice Cream) detected — experimental support enabled"
++        ;;
++    *)
++        echo "❌ Unsupported Android version: $VERSION"
++        exit 1
++        ;;
++esac
