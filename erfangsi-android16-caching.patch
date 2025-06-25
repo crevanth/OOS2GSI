@@ -1,0 +1,6 @@
+diff --git a/make.sh b/make.sh
+--- a/make.sh
++++ b/make.sh
+@@
+-SUPPORTED_ANDROID=("10" "11" "12" "13" "14")
++SUPPORTED_ANDROID=("10" "11" "12" "13" "14" "16")
