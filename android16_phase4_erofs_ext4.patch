@@ -1,0 +1,39 @@
+diff --git a/url2GSI.sh b/url2GSI.sh
+--- a/url2GSI.sh
++++ b/url2GSI.sh
+@@
++# === EROFS to EXT4 Conversion Function ===
++convert_erofs_to_ext4() {
++    IMG_NAME="$1"
++    MOUNT_DIR="mount/erofs_$IMG_NAME"
++    EXT4_OUT="$IMG_NAME.ext4"
++
++    if [ ! -f "$IMG_NAME" ]; then
++        echo "⚠️ $IMG_NAME not found, skipping..."
++        return
++    fi
++
++    TYPE=$(file -b "$IMG_NAME")
++    if echo "$TYPE" | grep -q "EROFS"; then
++        echo "📦 Detected EROFS: $IMG_NAME → converting to EXT4"
++        mkdir -p "$MOUNT_DIR"
++        sudo mount -t erofs -o loop "$IMG_NAME" "$MOUNT_DIR"
++        mkdir -p ext4_build
++        sudo rsync -a "$MOUNT_DIR"/ ext4_build/
++        sudo umount "$MOUNT_DIR"
++
++        echo "🛠 Creating EXT4 image: $EXT4_OUT"
++        sudo mke2fs -t ext4 -d ext4_build "$EXT4_OUT" 2G
++        sudo chown $USER:$USER "$EXT4_OUT"
++        mv "$IMG_NAME" "$IMG_NAME.bak"
++        mv "$EXT4_OUT" "$IMG_NAME"
++        rm -rf "$MOUNT_DIR" ext4_build
++    else
++        echo "✅ $IMG_NAME is not EROFS"
++    fi
++}
++
++# === Apply EROFS conversion ===
++for partition in system.img product.img system_ext.img odm.img; do
++    convert_erofs_to_ext4 "$partition"
++done

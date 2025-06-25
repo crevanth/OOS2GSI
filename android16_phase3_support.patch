@@ -1,0 +1,54 @@
+diff --git a/url2GSI.sh b/url2GSI.sh
+index 89abcde..76cdeff 100755
+--- a/url2GSI.sh
++++ b/url2GSI.sh
+@@
+ OTA_URL="$1"
+
++# Extract OTA filename
++FILENAME=$(basename "$OTA_URL")
++
++# Check if OTA is already downloaded
++if [ -f "$FILENAME" ]; then
++    echo "✔️ OTA already downloaded: $FILENAME — skipping"
++else
++    echo "⏬ Downloading OTA: $FILENAME"
++    wget -c "$OTA_URL" -O "$FILENAME"
++    if [ $? -ne 0 ]; then
++        echo "❌ Download failed for $OTA_URL"
++        exit 1
++    fi
++fi
++
++# Extract payload.bin if present
++echo "📦 Extracting OTA ZIP..."
++unzip -o "$FILENAME"
++
++if [ -f payload.bin ]; then
++    echo "🔍 Found payload.bin — dumping images..."
++    mkdir -p extracted
++    ./bin/payload-dumper-go -o extracted payload.bin || python3 payload_dumper.py payload.bin
++    cp extracted/*.img .
++else
++    echo "⚠️ payload.bin not found — skipping payload extraction"
++fi
++
++# Detect init_boot.img
++if [ -f init_boot.img ]; then
++    echo "🧩 Extracting init_boot.img"
++    mkdir -p ramdisk/init_boot
++    ./bin/magiskboot unpack init_boot.img ramdisk/init_boot || echo "⚠️ init_boot.img extraction failed"
++fi
++
++case "$VERSION" in
++    10|11|12|13|14)
++        echo "✔️ Recognized Android $VERSION"
++        ;;
++    16)
++        echo "⚠️ Android 16 (Vanilla Ice Cream) detected — full image extraction enabled"
++        ;;
++    *)
++        echo "❌ Unsupported Android version: $VERSION"
++        exit 1
++        ;;
++esac
